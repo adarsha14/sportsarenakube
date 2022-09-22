@@ -1,0 +1,24 @@
+server:
+  port: 8086
+spring:
+  data:
+    mongodb:
+      host: 34.201.191.117
+      port: 27017
+      database: chat
+  application:
+    name: chat-service
+  cloud:
+    config:
+      uri: http://34.201.191.117:8888
+      import-check.enabled: false
+management:
+  security:
+    enabled: false
+    
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://34.201.191.117:8761/eureka
