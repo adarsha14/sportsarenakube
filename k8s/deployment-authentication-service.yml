@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authenticationservice
+  labels:
+    app: authenticationservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authenticationservice
+  template:
+    metadata:
+      labels:
+        app: authenticationservice
+    spec:
+      containers:
+        - name: authenticationservice
+          image: adarsh1417/sports-arena:authenticationservice
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8095
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authenticationservice
+spec:
+  ports:
+    - targetPort: 8095
+      port: 8095
+  selector:
+    app: authenticationservice
+  type: NodePort
