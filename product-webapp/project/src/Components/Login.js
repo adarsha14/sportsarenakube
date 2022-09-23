@@ -13,6 +13,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import "../Assets/css/login.css"
 import {postData} from "../Services/loginServices.services"
 
+console.log("PAGEURL :> ",window.location.href)
+
+const routeUrl = window.location.href
+const url = routeUrl.slice(0,-6)
+var ip = url.split('/')[2].split(':')[0];
+
+const baseURL = 'http://' + ip
+
+
 function Login ({setEmail}) {
     
     let navigate = useNavigate(); 
@@ -47,7 +56,7 @@ function Login ({setEmail}) {
             if (formValues.role === "players") {
               
                 axios
-                    .get("http://localhost:3000/players/2")
+                    .get("http://${baseURL}:3000/players/2")
                     .then((response) => {
                         // console.log(response.data);
 
@@ -61,7 +70,7 @@ function Login ({setEmail}) {
                     .then(() => { });
             } else if(formValues.role === "vendors") {
                 axios
-                .get("http://localhost:3000/vendors/1")
+                .get("http://${baseURL}:3000/vendors/1")
                 .then((response) => {
                     // console.log(response.data);
                    let values= response.data;
@@ -110,7 +119,7 @@ function Login ({setEmail}) {
             sessionStorage.setItem("role",formValues.role)
              setEmail(formValues.userEmail)
             if(formValues.role==="newground"){
-                axios.get(`http://34.201.191.117:8080/user/api/v1/ground/ownerEmail/`+formValues.userEmail)
+                axios.get(`http://${baseURL}:8080/user/api/v1/ground/ownerEmail/`+formValues.userEmail)
                 .then((res)=>{
                     sessionStorage.setItem("groundID",res.data.groundID)
                 })

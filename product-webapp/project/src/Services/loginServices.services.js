@@ -1,7 +1,15 @@
 import axios from "axios";
 
+console.log("PAGEURL :> ",window.location.href)
+
+const routeUrl = window.location.href
+const url = routeUrl.slice(0,-6)
+var ip = url.split('/')[2].split(':')[0];
+
+const baseURL = 'http://' + ip + ":8080"
+
 export function postData(formValues, callback, errorcallback){
-  axios.post("http://34.201.191.117:8080/authentication/api/v1/userauth",formValues)
+  axios.post("http://${baseURL}/authentication/api/v1/userauth",formValues)
   .then(res => {
     //do something
     if(callback != null){

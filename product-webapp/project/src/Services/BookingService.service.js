@@ -1,7 +1,19 @@
 import axios from "axios";
 
-const baseURL = "http://34.201.191.117:8080/booking-Management";
-const paymentURL = "http://34.201.191.117:8080/payment";
+//const baseURL = "http://34.201.191.117:8080/booking-Management";
+//const paymentURL = "http://34.201.191.117:8080/payment";
+
+console.log("PAGEURL :> ",window.location.href)
+
+const routeUrl = window.location.href
+const url = routeUrl.slice(0,-6)
+var ip = url.split('/')[2].split(':')[0];
+
+const baseURL = 'http://' + ip + ":8080/booking-Management"
+const paymentURL = 'http://' + ip + ":8080/payment"
+
+
+
 export function getPlayerBookingsAll(name,value, type, callback, errorcallback) {
   axios.get(`${baseURL}/${type}?${name}=${value}`)
     .then(res => {

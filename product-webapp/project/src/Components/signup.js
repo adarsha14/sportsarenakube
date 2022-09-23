@@ -14,6 +14,14 @@ import { getData, postData, putData } from '../Services/signupservices';
 // import Alert from 'react-bootstrap/Alert';
 // import Image from 'react-bootstrap/Image'
 
+console.log("PAGEURL :> ",window.location.href)
+
+const routeUrl = window.location.href
+const url = routeUrl.slice(0,-6)
+var ip = url.split('/')[2].split(':')[0];
+
+const baseURL = 'http://' + ip
+
 
 function Signup() {
     const [show, setShow] = useState(false);
@@ -71,7 +79,7 @@ function Signup() {
     const postDetails = () => {
         if (formValues.role === "player") {
             axios
-                .post("http://localhost:3000/players",
+                .post("http://${baseURL}:3000/players",
                     { name: "", phoneNumber: "", userEmail: formValues.email, password: formValues.password, role: formValues.role, city: "", state: "", gender: "", profilePhoto: "", favSport: "" })
                 .then((response) => {
                     console.log(response);
@@ -82,7 +90,7 @@ function Signup() {
                 .then(() => { });
         } else {
             axios
-                .post("http://localhost:3000/vendors",
+                .post("http://${baseURL}:3000/vendors",
                     { ownerEmail: formValues.email, groundID: "", groundName: "", groundType: "", addressLineOne: "", addressLineTwo: "", city: "", pincode: "", ameneties: "", groundPicture: "", phoneNumber: "", password: formValues.password, role: formValues.role })
                 .then((response) => {
                     console.log(response);
@@ -108,12 +116,12 @@ function Signup() {
             favSport: "Cricket",
             id: 1
         }
-        axios.put("http://localhost:3000/newplayer/1", values)
+        axios.put("http://${baseURL}:3000/newplayer/1", values)
             .then(res => console.log(res.data)).catch((error) => { console.log(error) })
     }
 
     const deleteDetails = () => {
-        axios.delete("http://localhost:3000/newplayer/3").
+        axios.delete("http://${baseURL}:3000/newplayer/3").
             then((response) => {
                 console.log(response)
                 console.log("Deleted Successfully");
