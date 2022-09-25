@@ -1,0 +1,5 @@
+- hosts: masters
+  become: true
+  tasks:
+    - name: create deployments and service
+      command: kubectl apply -f /home/ec2-user/k8s/
